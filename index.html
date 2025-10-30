@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Risarcimento Salute - Assistenza Legale per Malasanità</title>
+    <meta name="description" content="Assistenza legale specializzata per danni da malasanità. Risarcimenti per errori chirurgici, diagnosi errate e danni al parto. Paghi solo a risultato ottenuto.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@11/dist/framer-motion.js"></script>
+    
+    <!-- Heroicons -->
+    <script src="https://unpkg.com/heroicons@2.0.18/24/outline/index.js" type="module"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-purple: #4e2d6b;
+            --primary-purple-dark: #3d2254;
+            --accent-yellow: #fbbf24;
+            --gradient-start: #f8fafc;
+            --gradient-end: #e2e8f0;
+            --neutral-blue: #1e40af;
+            --neutral-gray: #64748b;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .text-purple-custom {
+            color: #4e2d6b;
+        }
+        
+        .counter {
+            color: #4e2d6b;
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-purple);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-purple-dark);
+            transform: scale(1.02);
+        }
+        
+        .btn-secondary {
+            border: 2px solid var(--primary-purple);
+            color: var(--primary-purple);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gradient-start);
+        }
+        
+        .card-hover {
+            transition: all 0.2s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        
+        .timeline-step {
+            position: relative;
+        }
+        
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--primary-purple);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-step:last-child::before {
+            display: none;
+        }
+        
+        .testimonial-slide {
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .testimonial-slide.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-step::before {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-6 py-4" role="navigation" aria-label="Navigazione principale">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <img src="immagini/Centro risarcimento salute logo.png" 
+                             alt="Centro Risarcimento Salute" 
+                             class="h-12 w-auto">
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-purple-700 font-semibold">Home</a>
+                    <a href="servizi.html" class="text-gray-700 hover:text-purple-700 transition-colors">Servizi</a>
+                    <a href="contatti.html" class="text-gray-700 hover:text-purple-700 transition-colors">Contatti</a>
+                </div>
+                <button class="md:hidden text-gray-700" aria-label="Menu mobile">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="h-screen px-6 flex items-center" style="background-color: #dcd5e1;" aria-labelledby="hero-title">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <!-- Text Content (70% width) -->
+                    <div class="lg:w-7/12">
+                        <h1 id="hero-title" class="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 fade-in">
+                            Hai subito un danno da malasanità?<br>
+                            Ti aiutiamo a ottenere il giusto risarcimento.
+                        </h1>
+                        
+                        <div class="text-xl text-gray-700 mb-8 fade-in stagger-1">
+                            <p class="mb-2">Assistenza legale specializzata per decessi e danni permanenti gravi.</p>
+                            <p class="mb-2">Ti accompagniamo in ogni fase con supporto umano e professionale.</p>
+                            <p class="font-bold text-purple-custom">Paghi solo a risultato ottenuto.</p>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 mb-12 fade-in stagger-2">
+                            <button class="btn-primary text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-lg" onclick="document.getElementById('contatti').scrollIntoView({behavior: 'smooth'})" aria-describedby="cta-description">
+                                RICHIEDI CONSULENZA GRATUITA
+                            </button>
+                            <button class="btn-secondary px-8 py-4 rounded-lg text-lg font-semibold" onclick="document.getElementById('chi-siamo').scrollIntoView({behavior: 'smooth'})">
+                                Scopri Come Lavoriamo
+                            </button>
+                        </div>
+                        
+                        <div id="cta-description" class="sr-only">Richiedi una consulenza gratuita per valutare il tuo caso</div>
+                        
+                        <!-- Stats Row -->
+                        <div class="flex flex-col sm:flex-row gap-6 text-center justify-center fade-in stagger-3" id="stats-section">
+                            <div class="stat-item">
+                                <div class="text-3xl font-bold mb-1 counter" data-target="460" data-suffix="+">0</div>
+                                <div class="text-gray-600">clienti assistiti</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="text-3xl font-bold mb-1 counter" data-target="15">0</div>
+                                <div class="text-gray-600">anni di esperienza</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="text-3xl font-bold mb-1 counter" data-target="100" data-suffix="%">0</div>
+                                <div class="text-gray-600">copertura sull'intero territorio nazionale</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Image Content (30% width) -->
+                    <div class="lg:w-5/12 flex justify-center lg:justify-end">
+                        <div class="w-full max-w-md lg:max-w-none">
+                            <img src="immagini/Immagine hero CRS.jpg" 
+                                 alt="Assistenza legale per malasanità" 
+                                 class="w-full h-96 lg:h-full object-cover rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problems Section -->
+        <section id="servizi" class="py-20 px-6 bg-white" aria-labelledby="problems-title">
+            <div class="max-w-7xl mx-auto">
+                <h2 id="problems-title" class="text-4xl font-bold text-center text-gray-900 mb-16">
+                    Se ti riconosci in una di queste situazioni<br>
+                    noi possiamo aiutarti
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="card-hover bg-white border-2 border-gray-200 rounded-xl px-10 py-10 flex flex-col">
+                        <h3 class="text-xl font-bold text-purple-custom mb-6 text-center">DIAGNOSI<br>OMESSE, ERRATE, TARDIVE</h3>
+                        <ul class="text-gray-700 space-y-3 text-left flex-grow">
+                            <li>• Omessa prescrizione di esami diagnostico-strumentali</li>
+                            <li>• Errori di interpretazione di esami diagnostico-strumentali</li>
+                            <li>• Ritardi diagnostici con compromissione della guarigione</li>
+                            <li>• Mancato riconoscimento di segni e sintomi patologici</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="card-hover bg-white border-2 border-gray-200 rounded-xl px-10 py-10 flex flex-col">
+                        <h3 class="text-xl font-bold text-purple-custom mb-6 text-center">ERRORI<br>DA TRATTAMENTO CHIRURGICO</h3>
+                        <ul class="text-gray-700 space-y-3 text-left flex-grow">
+                            <li>• Invalida acquisizione del consenso informato;</li>
+                            <li>• Interventi di chirurgia ortopedica mal eseguiti con postumi;</li>
+                            <li>• Interventi di chirurgia generale mal eseguiti con postumi;</li>
+                            <li>• Interventi di chirurgia oncologica mal eseguiti con postumi e/o recidive;</li>
+                            <li>• Interventi di chirurgia ostetrica;</li>
+                            <li>• Interventi di chirurgia estetica mal eseguita con mancato raggiungimento del risultato</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="card-hover bg-white border-2 border-gray-200 rounded-xl px-10 py-10 flex flex-col">
+                        <h3 class="text-xl font-bold text-purple-custom mb-6 text-center">INFEZIONI<br>CORRELATE ALL'ASSISTENZA</h3>
+                        <ul class="text-gray-700 space-y-3 text-left flex-grow">
+                            <li>• Infezioni batteriche, virali, micotiche contratte durante il ricovero o immediatamente dopo la dimissione</li>
+                            <li>• Infezione da COVID contratta durante il ricovero o immediatamente dopo la dimissione</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-16 text-center">
+                    <p class="text-lg text-gray-700 max-w-4xl mx-auto">
+                        <strong>Non tutti i casi clinici sono uguali.</strong><br>
+                        La nostra competenza ed esperienza ci permette di risolvere ciascuno di essi.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Process Section -->
+        <section id="chi-siamo" class="py-20 px-6" style="background-color: #F2F2F2;" aria-labelledby="process-title">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 id="process-title" class="text-4xl font-bold text-black mb-2">
+                        Il nostro metodo in quattro fasi
+                    </h2>
+                </div>
+                
+                <div class="space-y-16">
+                    <!-- Fase 1: Testo (70%) sinistra, Immagine (30%) destra -->
+                    <div class="flex flex-col lg:flex-row items-center gap-8">
+                        <div class="lg:w-7/12">
+                            <div class="rounded-full flex items-center justify-center mb-4" style="background-color: #4e2d6b; width: 68px; height: 68px;">
+                                <span class="text-2xl font-bold text-white" style="font-family: 'Poppins', sans-serif;">1</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-black mb-2">VALUTAZIONE PRELIMINARE</h3>
+                            <p class="text-purple-custom font-semibold mb-4">Tempi: 48-72 ore</p>
+                            <ul class="text-black space-y-2">
+                                <li>• Studiamo la fattibilità del tuo caso clinico senza alcun costo;</li>
+                                <li>• Analizziamo la documentazione sanitaria in tuo possesso, ti indichiamo eventuale documentazione da integrare se necessaria o utile;</li>
+                                <li>• Formuliamo per ogni caso clinico un parere onesto sulle possibilità di successo stragiudiziale o giudiziale.</li>
+                            </ul>
+                        </div>
+                        <div class="lg:w-5/12">
+                            <div class="rounded-lg overflow-hidden h-80">
+                                <img src="immagini/Valutazione preliminare.jpg" 
+                                     alt="Valutazione documentazione medica" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fase 2: Immagine (30%) sinistra, Testo (70%) destra -->
+                    <div class="flex flex-col lg:flex-row items-center gap-8">
+                        <div class="lg:w-5/12">
+                            <div class="rounded-lg overflow-hidden h-80">
+                                <img src="immagini/Perizia medico legale.jpg" 
+                                     alt="Perizia medico-legale specialistica" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="lg:w-7/12">
+                            <div class="rounded-full flex items-center justify-center mb-4" style="background-color: #4e2d6b; width: 68px; height: 68px;">
+                                <span class="text-2xl font-bold text-white" style="font-family: 'Poppins', sans-serif;">2</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-black mb-2">CONSULENZA MEDICO-LEGALE PERSONALIZZATA</h3>
+                            <p class="text-purple-custom font-semibold mb-4">Tempi: 1-2 settimane</p>
+                            <p class="text-black mb-4">
+                                I nostri medici legali e gli specialisti della branca analizzano con competenza ed approfonditamente tutta la documentazione sanitaria, cartelle cliniche, certificazioni, esami ematochimici e diagnostici per individuare eventuali errori medici.
+                            </p>
+                            <p class="text-black font-semibold mb-2">Di conseguenza:</p>
+                            <ul class="text-black space-y-1">
+                                <li>• identifichiamo le responsabilità mediche;</li>
+                                <li>• valutiamo i danni;</li>
+                                <li>• quantifichiamo l'entità del risarcimento</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Fase 3: Testo (70%) sinistra, Immagine (30%) destra -->
+                    <div class="flex flex-col lg:flex-row items-center gap-8">
+                        <div class="lg:w-7/12">
+                            <div class="rounded-full flex items-center justify-center mb-4" style="background-color: #4e2d6b; width: 68px; height: 68px;">
+                                <span class="text-2xl font-bold text-white" style="font-family: 'Poppins', sans-serif;">3</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-black mb-2">PIANO D'AZIONE</h3>
+                            <p class="text-purple-custom font-semibold mb-4">Tempi: Immediato dopo la perizia</p>
+                            <p class="text-black mb-4">
+                                Definiamo insieme il percorso migliore per la soluzione del tuo caso con:
+                            </p>
+                            <ul class="text-black space-y-1">
+                                <li>• strategia personalizzata;</li>
+                                <li>• condivisione di tempistiche ed aspettative;</li>
+                                <li>• accordo trasparente.</li>
+                            </ul>
+                        </div>
+                        <div class="lg:w-5/12">
+                            <div class="rounded-lg overflow-hidden h-80">
+                                <img src="immagini/Piano d'azione.jpg" 
+                                     alt="Piano d'azione strategico" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fase 4: Immagine (30%) sinistra, Testo (70%) destra -->
+                    <div class="flex flex-col lg:flex-row items-center gap-8">
+                        <div class="lg:w-5/12">
+                            <div class="rounded-lg" style="min-height: 400px; height: auto; overflow: visible;">
+                                <img src="immagini/Supporto completo.jpg" 
+                                     alt="Supporto completo e accompagnamento" 
+                                     style="object-fit: contain; width: 100%; height: auto; max-height: none;">
+                            </div>
+                        </div>
+                        <div class="lg:w-7/12">
+                            <div class="rounded-full flex items-center justify-center mb-4" style="background-color: #4e2d6b; width: 68px; height: 68px;">
+                                <span class="text-2xl font-bold text-white" style="font-family: 'Poppins', sans-serif;">4</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-black mb-2">SUPPORTO COMPLETO<br>FINO AL RISARCIMENTO</h3>
+                            <p class="text-black mb-4">
+                                Ti seguiamo in ogni momento del tuo percorso stragiudiziale e giudiziale, fornendoti supporto professionale altamente specializzato ed umano in ogni fase del procedimento.
+                            </p>
+                            <p class="text-black mb-4">
+                                Ti aggiorniamo costantemente sull'evoluzione del procedimento fornendoti ogni dettaglio.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonianze" class="py-20 px-6" style="background-color: #dcd5e1;" aria-labelledby="testimonials-title">
+            <div class="max-w-7xl mx-auto">
+                <h2 id="testimonials-title" class="text-4xl font-bold text-center text-gray-900 mb-16" style="font-family: 'Poppins', sans-serif;">
+                    Famiglie che hanno ottenuto giustizia con noi
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex mb-4">
+                            <span class="text-yellow-400 text-xl">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <blockquote class="text-gray-700 mb-6 italic">
+                            "Dopo l'intervento al ginocchio di mio padre, si è sviluppata un'infezione che i medici hanno sottovalutato. 
+                            Centro Risarcimento Salute non solo ci ha ottenuto un risarcimento di 180.000€, ma Diana ci ha chiamati 
+                            personalmente ogni settimana. Sono stati al nostro fianco nei momenti più difficili, quando non sapevamo più a chi rivolgerci."
+                        </blockquote>
+                        <div class="font-semibold text-gray-900">Maria T. - Bari</div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex mb-4">
+                            <span class="text-yellow-400 text-xl">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <blockquote class="text-gray-700 mb-6 italic">
+                            "Durante il parto è successo l'impensabile. A causa di negligenze mediche, il nostro bambino ha riportato danni permanenti. 
+                            Sono stati gli unici a dirci la verità fin dall'inizio e a lottare davvero per noi, senza mai perdere la speranza. 
+                            Risarcimento di 420.000€ dopo 18 mesi di battaglia insieme."
+                        </blockquote>
+                        <div class="font-semibold text-gray-900">Alessandra M. - Lecce</div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex mb-4">
+                            <span class="text-yellow-400 text-xl">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <blockquote class="text-gray-700 mb-6 italic">
+                            "Dopo la diagnosi tardiva di tumore di mia madre, abbiamo cercato giustizia per anni senza successo. 
+                            Centro Risarcimento Salute ha dimostrato la negligenza medica e ci ha ottenuto un risarcimento di 280.000€. 
+                            La loro competenza e il supporto umano ci hanno dato la forza di continuare."
+                        </blockquote>
+                        <div class="font-semibold text-gray-900">Francesco R. - Potenza</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guarantees Section -->
+        <section class="py-20 px-6 bg-white" aria-labelledby="guarantees-title">
+            <div class="max-w-7xl mx-auto">
+                <h2 id="guarantees-title" class="text-4xl font-bold text-center text-gray-900 mb-16" style="font-family: 'Poppins', sans-serif;">
+                    Garanzie che nessun altro ti offre
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Garanzia 1 -->
+                    <div class="text-center p-6 border-2 border-purple-200 rounded-xl transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:border-purple-400 hover:bg-purple-50 cursor-pointer">
+                        <svg class="w-12 h-12 mx-auto mb-4 transition-colors duration-300" style="color: #4e2d6b;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                        <h3 class="text-xl font-bold mb-2 transition-colors duration-300" style="font-family: 'Poppins', sans-serif; color: #4e2d6b; text-transform: uppercase;">ZERO RISCHI ECONOMICI</h3>
+                        <p class="text-gray-700 transition-colors duration-300">
+                            Nessun anticipo richiesto, nessuna spesa nascosta.<br>
+                            Se non otteniamo il risarcimento, non paghi nulla.<br>
+                            È il nostro modo di dimostrarti quanto crediamo nel tuo caso.
+                        </p>
+                    </div>
+                    
+                    <!-- Garanzia 2 -->
+                    <div class="text-center p-6 border-2 border-purple-200 rounded-xl transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:border-purple-400 hover:bg-purple-50 cursor-pointer">
+                        <svg class="w-12 h-12 mx-auto mb-4 transition-colors duration-300" style="color: #4e2d6b;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h3 class="text-xl font-bold mb-2 transition-colors duration-300" style="font-family: 'Poppins', sans-serif; color: #4e2d6b; text-transform: uppercase;">TEMPI E<br>TRASPARENZA</h3>
+                        <p class="text-gray-700 transition-colors duration-300">
+                            Valutazione gratuita entro 48 ore dalla ricezione della documentazione.<br>
+                            Aggiornamenti costanti sullo stato della pratica e tempistiche realistiche sin dall'inizio.
+                        </p>
+                    </div>
+                    
+                    <!-- Garanzia 3 -->
+                    <div class="text-center p-6 border-2 border-purple-200 rounded-xl transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:border-purple-400 hover:bg-purple-50 cursor-pointer">
+                        <svg class="w-12 h-12 mx-auto mb-4 transition-colors duration-300" style="color: #4e2d6b;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <h3 class="text-xl font-bold mb-2 transition-colors duration-300" style="font-family: 'Poppins', sans-serif; color: #4e2d6b; text-transform: uppercase;">SUPPORTO UMANO INCLUSO</h3>
+                        <p class="text-gray-700 transition-colors duration-300">
+                            Assistenza psicologica inclusa nel servizio.<br>
+                            Ti accompagniamo fisicamente alle visite medico-legali e alle udienze.<br>
+                            Disponibilità anche per assistenza domiciliare.
+                        </p>
+                    </div>
+                    
+                    <!-- Garanzia 4 -->
+                    <div class="text-center p-6 border-2 border-purple-200 rounded-xl transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:border-purple-400 hover:bg-purple-50 cursor-pointer">
+                        <svg class="w-12 h-12 mx-auto mb-4 transition-colors duration-300" style="color: #4e2d6b;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                        <h3 class="text-xl font-bold mb-2 transition-colors duration-300" style="font-family: 'Poppins', sans-serif; color: #4e2d6b; text-transform: uppercase;">MASSIMA RISERVATEZZA</h3>
+                        <p class="text-gray-700 transition-colors duration-300">
+                            Gestione riservata di ogni informazione.<br>
+                            Comunicazioni discrete e protezione totale dei tuoi dati sensibili.<br>
+                            Firmiamo accordi di riservatezza quando richiesto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="contatti" class="py-12 px-6 text-white" style="background-color: #4e2d6b; font-family: 'Poppins', sans-serif;" aria-labelledby="final-cta-title">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- Left Column - Text Content -->
+                    <div class="lg:w-full">
+                        <h2 id="final-cta-title" class="text-4xl font-bold mb-6">
+                            Pronto a ottenere la giustizia<br>che meriti?
+                        </h2>
+                        
+                        <p class="text-xl mb-6">
+                            Non aspettare che sia troppo tardi.<br>
+                            Ogni giorno che passa può compromettere i tuoi diritti.
+                        </p>
+                        
+                        <p class="text-lg">
+                            Il primo passo verso la giustizia inizia con una semplice chiamata o messaggio.<br>
+                            La nostra valutazione è gratuita, il nostro supporto è garantito, la tua soddisfazione è il nostro obiettivo.
+                        </p>
+                    </div>
+                    
+                    <!-- Right Column - Contact Form -->
+                    <div class="lg:w-full">
+                        <div class="p-6 rounded-2xl shadow-lg" style="background-color: #dcd5e1;">
+                            <form class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="nome" class="block text-sm font-semibold mb-2" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">Nome</label>
+                                        <input type="text" id="nome" name="nome" required 
+                                               class="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-purple-300 focus:outline-none text-gray-900" 
+                                               style="border-color: #4e2d6b; background-color: white; border-width: 1px;">
+                                    </div>
+                                    <div>
+                                        <label for="cognome" class="block text-sm font-semibold mb-2" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">Cognome</label>
+                                        <input type="text" id="cognome" name="cognome" required 
+                                               class="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-purple-300 focus:outline-none text-gray-900" 
+                                               style="border-color: #4e2d6b; background-color: white; border-width: 1px;">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label for="email" class="block text-sm font-semibold mb-2" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">Email</label>
+                                    <input type="email" id="email" name="email" required 
+                                           class="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-purple-300 focus:outline-none text-gray-900" 
+                                           style="border-color: #4e2d6b; background-color: white; border-width: 1px;">
+                                </div>
+                                
+                                <div>
+                                    <label for="telefono" class="block text-sm font-semibold mb-2" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">Telefono</label>
+                                    <input type="tel" id="telefono" name="telefono" required 
+                                           class="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-purple-300 focus:outline-none text-gray-900" 
+                                           style="border-color: #4e2d6b; background-color: white; border-width: 1px;">
+                                </div>
+                                
+                                <div>
+                                    <label for="messaggio" class="block text-sm font-semibold mb-2" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">Messaggio</label>
+                                    <textarea id="messaggio" name="messaggio" rows="5" required 
+                                              class="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-purple-300 focus:outline-none text-gray-900 resize-vertical" 
+                                              style="border-color: #4e2d6b; background-color: white; min-height: 120px; border-width: 1px;"></textarea>
+                                </div>
+                                
+                                <button type="submit" 
+                                        class="w-full px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 hover:opacity-90 uppercase" 
+                                        style="background-color: #c0accf; color: #4e2d6b; font-family: 'Poppins', sans-serif;">
+                                    RICHIEDI CONSULENZA GRATUITA
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6" style="background-color: #f2f2f2; font-family: 'Poppins', sans-serif;">
+        <div class="max-w-7xl mx-auto">
+            <!-- Top Footer - 3 Columns with specific proportions -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8" style="grid-template-columns: 50% 25% 25%;">
+                <!-- Left Column - Logo & Company Info (50%) -->
+                <div>
+                    <a href="index.html">
+                        <img src="immagini/Centro risarcimento salute logo.png" 
+                             alt="Centro Risarcimento Salute" 
+                             class="h-16 w-auto mb-4">
+                    </a>
+                    <p class="text-gray-800 font-semibold mb-2">Dott.ssa Diana Castellano</p>
+                    <p class="text-gray-700 mb-2">Specialisti in Responsabilità Medica</p>
+                    <p class="text-gray-700 mb-2">Sede principale: Puglia</p>
+                    <p class="text-gray-700 mb-4">Operativi su tutto il territorio nazionale</p>
+                </div>
+                
+                <!-- Center Column - Pagine (25%) -->
+                <div style="margin-top: 85px;">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-800">Pagine</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-700 hover:text-purple-600 transition-colors">Home</a></li>
+                        <li><a href="servizi.html" class="text-gray-700 hover:text-purple-600 transition-colors">Servizi</a></li>
+                        <li><a href="contatti.html" class="text-gray-700 hover:text-purple-600 transition-colors">Contatti</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Right Column - Contatti (25%) -->
+                <div style="margin-top: 85px;">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-800">Contatti</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-gray-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-gray-700">dia.castellano17@gmail.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-gray-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <span class="text-gray-700">099-9463034</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-gray-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-gray-700">Massafra (TA)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div class="border-t border-gray-300 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-gray-700 mb-4 md:mb-0">
+                        © 2024 Centro Risarcimento Salute. Tutti i diritti riservati.
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-700 hover:text-purple-600 transition-colors">Privacy Policy</a>
+                        <span class="text-gray-500">|</span>
+                        <a href="#" class="text-gray-700 hover:text-purple-600 transition-colors">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for animations and interactions -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.card-hover, .timeline-step').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('button[aria-label="Menu mobile"]');
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'md:hidden bg-white shadow-lg absolute top-full left-0 right-0 z-50';
+        mobileMenu.innerHTML = `
+            <div class="px-6 py-4 space-y-4">
+                <a href="index.html" class="block text-gray-700 hover:text-purple-700">Home</a>
+                <a href="servizi.html" class="block text-gray-700 hover:text-purple-700">Servizi</a>
+                <a href="contatti.html" class="block text-gray-700 hover:text-purple-700">Contatti</a>
+            </div>
+        `;
+        mobileMenu.style.display = 'none';
+        document.querySelector('header').appendChild(mobileMenu);
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // CTA button interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Add click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Counter animation function
+        function animateCounter(element, target, duration = 2000, suffix = '') {
+            const start = 0;
+            const increment = target / (duration / 16); // 60fps
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current) + suffix;
+            }, 16);
+        }
+
+        // Intersection Observer for counter animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        animateCounter(counter, target, 2000, suffix);
+                    });
+                    statsObserver.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        // Observe stats section
+        const statsSection = document.getElementById('stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
