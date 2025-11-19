@@ -564,7 +564,7 @@
                             <h3 class="text-2xl font-bold mb-6 text-center" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">
                                 Richiedi una consulenza gratuita
                             </h3>
-                            <form class="space-y-4">
+                            <form id="contact-form-home" class="space-y-4" action="https://hook.eu2.make.com/68sp912c7pll2gsqc3cuvyztufawknmc" method="POST">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label for="nome" class="block text-sm font-semibold mb-2" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">Nome</label>
@@ -600,7 +600,7 @@
                                 
                                 <div>
                                     <label for="messaggio" class="block text-sm font-semibold mb-2" style="color: #4e2d6b; font-family: 'Poppins', sans-serif;">Messaggio</label>
-                                    <textarea id="messaggio" name="messaggio" rows="5" required 
+                                    <textarea id="messaggio" name="messaggio" rows="5" 
                                               class="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-purple-300 focus:outline-none text-gray-900 resize-vertical" 
                                               style="border-color: #4e2d6b; background-color: white; min-height: 120px; border-width: 1px;"
                                               placeholder="Descrivi brevemente la tua situazione..."></textarea>
@@ -819,6 +819,35 @@
         if (statsSection) {
             statsObserver.observe(statsSection);
         }
+
+        // Invio form CTA home a Make webhook senza lasciare la pagina
+        (function () {
+            const form = document.getElementById('contact-form-home');
+            if (!form) return;
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const submitButton = form.querySelector('button[type="submit"]');
+                try {
+                    if (submitButton) submitButton.disabled = true;
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'cors',
+                    });
+                    if (response.ok || response.status === 0) {
+                        alert('Messaggio inviato con successo! Ti contatteremo presto.');
+                        form.reset();
+                    } else {
+                        alert('Si è verificato un problema nell’invio. Riprova tra qualche istante.');
+                    }
+                } catch (err) {
+                    alert('Si è verificato un problema di connessione. Riprova tra qualche istante.');
+                } finally {
+                    if (submitButton) submitButton.disabled = false;
+                }
+            });
+        })();
     </script>
 </body>
 </html>
